@@ -250,3 +250,34 @@ Total              [██████░░░░]  10/19
 ```
 
 > Actualiza el estado: `⬜ → 🔄 → ✅`
+
+---
+
+## 🚢 Publicar una nueva versión a Docker Hub
+
+1. **Desarrollar en una rama y abrir PR**
+   ```bash
+   git checkout -b feature/mi-cambio
+   # ... cambios ...
+   git push -u origin feature/mi-cambio
+   # Abrir PR → revisar → mergear a main
+   ```
+
+2. **Traer main actualizado**
+   ```bash
+   git checkout main
+   git pull
+   ```
+
+3. **Crear y pushear el tag de versión**
+   ```bash
+   git tag 1.1.0
+   git push origin 1.1.0
+   ```
+
+4. **El CI publica automáticamente en Docker Hub**
+   - `maosuarez/pedido-backend:1.1.0`
+   - `maosuarez/pedido-backend:latest`
+
+> El tag debe seguir el formato `Major.Minor.Fix` exacto (ej: `1.0.0`, `1.1.0`, `2.0.0`).
+> Nunca taggear desde una rama — siempre desde `main` después del merge.
