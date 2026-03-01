@@ -2,7 +2,7 @@
 
 > Código fuente del sistema de gestión de pedidos — backend Spring Boot + frontend React.
 > Este repositorio produce imágenes Docker publicadas en Docker Hub.
-> El despliegue en Kubernetes vive en [`pedido-app-infra`](https://github.com/<org>/pedido-app-infra).
+> El despliegue en Kubernetes vive en [`pedido-app-infra`](https://github.com/maosuarez/pedido-app-infra).
 
 ---
 
@@ -52,15 +52,15 @@ pedido-app-src/
 
 | Componente | Imagen en Docker Hub |
 |---|---|
-| Backend | `<dockerhub-user>/pedido-backend` |
-| Frontend | `<dockerhub-user>/pedido-frontend` |
+| Backend | `maosuarez/pedido-backend` |
+| Frontend | `maosuarez/pedido-frontend` |
 
 ### Estrategia de tags
 
 | Evento Git | Tag generado |
 |---|---|
 | Push a `main` | `dev-<git-sha-corto>` + `dev-latest` |
-| Tag `v*.*.*` | versión semver + `latest` |
+| Tag `Major.Minor.Fix` (ej: `1.0.0`) | `Major.Minor.Fix` + `latest` |
 
 ---
 
@@ -96,7 +96,7 @@ El backend lee toda su configuración de variables de entorno. No hay valores ha
 
 ```bash
 # Clonar el repo
-git clone https://github.com/<org>/pedido-app-src
+git clone https://github.com/maosuarez/pedido-app-src
 cd pedido-app-src
 
 # Levantar todo el stack localmente
@@ -157,7 +157,7 @@ main  (protegido, requiere PR)
  └── feature/pb-<tarea>   → PR → revisión → merge
 ```
 
-Al mergear a `main`, el CI construye y publica la nueva imagen. Luego se actualiza el tag en [`pedido-app-infra`](https://github.com/<org>/pedido-app-infra) para que ArgoCD despliegue la nueva versión.
+Al mergear a `main`, el CI construye y publica la nueva imagen. Luego se actualiza el tag en [`pedido-app-infra`](https://github.com/maosuarez/pedido-app-infra) para que ArgoCD despliegue la nueva versión.
 
 ---
 
