@@ -26,17 +26,17 @@ pedido-app-src/
 │   │   ├── main/
 │   │   │   ├── java/com/pedidos/
 │   │   │   │   ├── PedidoBackendApplication.java
-│   │   │   │   ├── controller/PedidoController.java  (pendiente)
-│   │   │   │   ├── model/Pedido.java                 (pendiente)
-│   │   │   │   ├── repository/PedidoRepository.java  (pendiente)
-│   │   │   │   └── service/PedidoService.java        (pendiente)
+│   │   │   │   ├── controller/PedidoController.java
+│   │   │   │   ├── model/Pedido.java
+│   │   │   │   ├── repository/PedidoRepository.java
+│   │   │   │   └── service/PedidoService.java
 │   │   │   └── resources/
 │   │   │       └── application.properties
 │   │   └── test/java/com/pedidos/
 │   │       └── PedidoBackendApplicationTests.java
 │   ├── mvnw / mvnw.cmd
 │   ├── pom.xml
-│   └── Dockerfile                              (pendiente)
+│   └── Dockerfile
 ├── frontend/                                   ← React + Vite + TypeScript
 │   ├── public/
 │   │   └── vite.svg
@@ -60,9 +60,17 @@ pedido-app-src/
 │   └── Dockerfile                              (pendiente)
 └── .github/
     └── workflows/
-        ├── ci-backend.yml                      (pendiente)
+        ├── ci-backend.yml
         └── ci-frontend.yml                     (pendiente)
 ```
+
+---
+
+## Aclaracion importnate porque se pone `nginx.conf` — proxy `/api/` → backend, serve SPA en `/`
+Lo mantenemos porque para pruebas en local va a ser mas sencillo usarlo y ver que todo funciona porque:
+
+  - Localmente (docker compose): el nginx proxea al backend directamente
+  - En k8s: el Ingress intercepta /api/ antes de que llegue a nginx, así que el proxy_pass nunca se ejecuta — no hace daño
 
 ---
 
@@ -91,8 +99,8 @@ El backend lee toda su configuración de variables de entorno. No hay valores ha
 | `DB_HOST` | Host de PostgreSQL | `localhost` |
 | `DB_PORT` | Puerto | `5432` |
 | `DB_NAME` | Nombre de la base de datos | `pedidos` |
-| `DB_USER` | Usuario | — |
-| `DB_PASSWORD` | Contraseña | — |
+| `DB_USER` | Usuario | admin |
+| `DB_PASSWORD` | Contraseña | admin1234 |
 | `SERVER_PORT` | Puerto del servidor | `8080` |
 
 ---
@@ -132,7 +140,7 @@ docker compose up --build
 # Backend
 docker build -t pedido-backend:local ./backend
 docker run -p 8080:8080 \
-  -e DB_HOST=localhost -e DB_USER=user -e DB_PASSWORD=pass \
+  -e DB_HOST=localhost -e DB_USER=admin -e DB_PASSWORD=admin1234 \
   pedido-backend:local
 
 # Frontend
@@ -149,7 +157,7 @@ El CI se dispara automáticamente en cada push a `main`.
 ### `ci-backend.yml`
 1. Checkout del código
 2. Build de la imagen Docker (`./backend/Dockerfile`)
-3. Push a Docker Hub con tags `dev-<sha>` y `dev-latest`
+3. Push a Docker Hub con tags `Major.Minor.Fix` y `dev-latest`
 
 ### `ci-frontend.yml`
 1. Checkout del código
@@ -200,7 +208,7 @@ Leyenda: `⬜ Pendiente` · `🔄 En progreso` · `✅ Completado` · `🔴 Bloq
 | 6 | Endpoint `/api/health` para liveness probe | Persona B | ✅ | `feature/pb-backend` |
 | 7 | `application.properties` leyendo todo de variables de entorno | Persona B | ✅ | `feature/pb-backend` |
 | 8 | `Dockerfile` multi-stage (Maven build + JRE slim runtime) | Persona B | ✅ | `feature/pb-backend` |
-| 9 | Validar imagen backend localmente | Persona B | ⬜ | — |
+| 9 | Validar imagen backend localmente | Persona B | ✅ | — |
 
 ### 🎨 Frontend
 
@@ -216,14 +224,14 @@ Leyenda: `⬜ Pendiente` · `🔄 En progreso` · `✅ Completado` · `🔴 Bloq
 
 | # | Tarea | Responsable | Estado | Rama |
 |---|---|---|---|---|
-| 15 | `docker-compose.yml` con backend + frontend + PostgreSQL | Ambos | ⬜ | `feature/pa-docker-compose` |
+| 15 | `docker-compose.yml` con backend + frontend + PostgreSQL | Ambos | 🔄 | `feature/pb-backend` |
 | 16 | Prueba end-to-end local: crear pedido desde UI, verificar en DB | Ambos | ⬜ | — |
 
 ### ⚙️ CI
 
 | # | Tarea | Responsable | Estado | Rama |
 |---|---|---|---|---|
-| 17 | `ci-backend.yml` — build + push a Docker Hub | Persona B | ⬜ | `feature/pb-ci-backend` |
+| 17 | `ci-backend.yml` — build + push a Docker Hub | Persona B | ✅ | `feature/pb-backend` |
 | 18 | `ci-frontend.yml` — build + push a Docker Hub | Persona A | ⬜ | `feature/pa-ci-frontend` |
 | 19 | Validar que las imágenes aparecen en Docker Hub tras el push | Ambos | ⬜ | — |
 
@@ -233,12 +241,12 @@ Leyenda: `⬜ Pendiente` · `🔄 En progreso` · `✅ Completado` · `🔴 Bloq
 
 ```
 Setup              [██████████]  3/3
-Backend            [████████░░]  5/6  (falta: validación local manual)
+Backend            [██████████]  6/6
 Frontend           [░░░░░░░░░░]  0/5
 Integración local  [░░░░░░░░░░]  0/2
-CI                 [░░░░░░░░░░]  0/3
+CI                 [███░░░░░░░]  1/3
 ──────────────────────────────────
-Total              [████░░░░░░]  8/19
+Total              [██████░░░░]  10/19
 ```
 
 > Actualiza el estado: `⬜ → 🔄 → ✅`

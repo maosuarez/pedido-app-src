@@ -1,0 +1,31 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: postgres_test
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin1234
+      POSTGRES_DB: pedidos
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  backend:
+    build: ./backend
+    container_name: pedido-backend-local
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: pedidos
+      DB_USER: admin
+      DB_PASSWORD: admin1234
+    depends_on:
+      - postgres
+
+volumes:
+  postgres_data:
