@@ -19,31 +19,49 @@
 
 ```
 pedido-app-src/
-├── backend/
-│   ├── src/main/java/com/pedidos/
-│   │   ├── PedidoApplication.java
-│   │   ├── controller/PedidoController.java
-│   │   ├── model/Pedido.java
-│   │   ├── repository/PedidoRepository.java
-│   │   └── service/PedidoService.java
-│   ├── src/main/resources/
-│   │   └── application.properties
-│   ├── pom.xml
-│   └── Dockerfile
-├── frontend/
+├── backend/                                    ← Spring Boot 3.5.0 / Java 21
+│   ├── .mvn/wrapper/
+│   │   └── maven-wrapper.properties
 │   ├── src/
-│   │   ├── App.jsx
+│   │   ├── main/
+│   │   │   ├── java/com/pedidos/
+│   │   │   │   ├── PedidoBackendApplication.java
+│   │   │   │   ├── controller/PedidoController.java  (pendiente)
+│   │   │   │   ├── model/Pedido.java                 (pendiente)
+│   │   │   │   ├── repository/PedidoRepository.java  (pendiente)
+│   │   │   │   └── service/PedidoService.java        (pendiente)
+│   │   │   └── resources/
+│   │   │       └── application.properties
+│   │   └── test/java/com/pedidos/
+│   │       └── PedidoBackendApplicationTests.java
+│   ├── mvnw / mvnw.cmd
+│   ├── pom.xml
+│   └── Dockerfile                              (pendiente)
+├── frontend/                                   ← React + Vite + TypeScript
+│   ├── public/
+│   │   └── vite.svg
+│   ├── src/
+│   │   ├── assets/react.svg
+│   │   ├── App.tsx
+│   │   ├── App.css
+│   │   ├── index.css
+│   │   ├── main.tsx
 │   │   ├── components/
-│   │   │   ├── PedidoList.jsx
-│   │   │   └── PedidoForm.jsx
-│   │   └── services/api.js
-│   ├── nginx.conf
+│   │   │   ├── PedidoList.tsx                  (pendiente)
+│   │   │   └── PedidoForm.tsx                  (pendiente)
+│   │   └── services/
+│   │       └── api.ts                          (pendiente)
+│   ├── index.html
+│   ├── nginx.conf                              (pendiente)
 │   ├── package.json
-│   └── Dockerfile
+│   ├── tsconfig.json / tsconfig.app.json / tsconfig.node.json
+│   ├── vite.config.ts
+│   ├── eslint.config.js
+│   └── Dockerfile                              (pendiente)
 └── .github/
     └── workflows/
-        ├── ci-backend.yml
-        └── ci-frontend.yml
+        ├── ci-backend.yml                      (pendiente)
+        └── ci-frontend.yml                     (pendiente)
 ```
 
 ---
@@ -169,8 +187,8 @@ Leyenda: `⬜ Pendiente` · `🔄 En progreso` · `✅ Completado` · `🔴 Bloq
 
 | # | Tarea | Responsable | Estado | Rama |
 |---|---|---|---|---|
-| 1 | Crear estructura base de carpetas | Persona B | ⬜ | `feature/pb-repo-setup` |
-| 2 | Agregar `CLAUDE.md` y `README.md` | Persona B | ⬜ | `feature/pb-repo-setup` |
+| 1 | Crear estructura base de carpetas | Persona B | ✅ | `feature/pb-repo-setup` |
+| 2 | Agregar `CLAUDE.md` y `README.md` | Persona B | ✅ | `feature/pb-repo-setup` |
 | 3 | Configurar secrets en GitHub (`DOCKERHUB_USERNAME`, `DOCKERHUB_TOKEN`) | Ambos | ⬜ | — |
 
 ### 🖥️ Backend
@@ -214,13 +232,13 @@ Leyenda: `⬜ Pendiente` · `🔄 En progreso` · `✅ Completado` · `🔴 Bloq
 ## 📊 Progreso — Repo src
 
 ```
-Setup              [░░░░░░░░░░]  0/3
+Setup              [██████░░░░]  2/3
 Backend            [░░░░░░░░░░]  0/6
 Frontend           [░░░░░░░░░░]  0/5
 Integración local  [░░░░░░░░░░]  0/2
 CI                 [░░░░░░░░░░]  0/3
 ──────────────────────────────────
-Total              [░░░░░░░░░░]  0/19
+Total              [█░░░░░░░░░]  2/19
 ```
 
 > Actualiza el estado: `⬜ → 🔄 → ✅`

@@ -7,8 +7,8 @@ Su única responsabilidad es producir imágenes Docker publicadas en Docker Hub.
 No contiene nada de Kubernetes, Helm ni ArgoCD — eso vive en `pedido-app-infra`.
 
 **Stack:**
-- Backend: Java Spring Boot (CRUD de pedidos, conexión PostgreSQL via JDBC)
-- Frontend: React (SPA que consume `/api/` del backend)
+- Backend: Java 21 + Spring Boot 3.5.0 (CRUD de pedidos, conexión PostgreSQL via JDBC)
+- Frontend: React + Vite + TypeScript (SPA que consume `/api/` del backend)
 - CI: GitHub Actions (build + push a Docker Hub en cada push a `main`)
 - Registry: Docker Hub (`<user>/pedido-backend`, `<user>/pedido-frontend`)
 
@@ -38,34 +38,42 @@ No contiene nada de Kubernetes, Helm ni ArgoCD — eso vive en `pedido-app-infra
 
 ```
 pedido-app-src/
-├── backend/
+├── backend/                            # Spring Boot 3.5.0 / Java 21
+│   ├── .mvn/wrapper/
+│   │   └── maven-wrapper.properties
 │   ├── src/
-│   │   └── main/
-│   │       ├── java/com/pedidos/
-│   │       │   ├── PedidoApplication.java
-│   │       │   ├── controller/PedidoController.java
-│   │       │   ├── model/Pedido.java
-│   │       │   ├── repository/PedidoRepository.java
-│   │       │   └── service/PedidoService.java
-│   │       └── resources/
-│   │           └── application.properties
+│   │   ├── main/
+│   │   │   ├── java/com/pedidos/
+│   │   │   │   ├── PedidoBackendApplication.java
+│   │   │   │   ├── controller/PedidoController.java
+│   │   │   │   ├── model/Pedido.java
+│   │   │   │   ├── repository/PedidoRepository.java
+│   │   │   │   └── service/PedidoService.java
+│   │   │   └── resources/
+│   │   │       └── application.properties
+│   │   └── test/java/com/pedidos/
+│   │       └── PedidoBackendApplicationTests.java
+│   ├── mvnw / mvnw.cmd
 │   ├── pom.xml
-│   └── Dockerfile                  # Multi-stage: Maven build + JRE runtime
-├── frontend/
+│   └── Dockerfile                      # Multi-stage: Maven build + JRE runtime
+├── frontend/                           # React + Vite + TypeScript
 │   ├── src/
-│   │   ├── App.jsx
+│   │   ├── App.tsx
 │   │   ├── components/
-│   │   │   ├── PedidoList.jsx
-│   │   │   └── PedidoForm.jsx
+│   │   │   ├── PedidoList.tsx
+│   │   │   └── PedidoForm.tsx
 │   │   └── services/
-│   │       └── api.js              # fetch wrapper apuntando a /api/
-│   ├── nginx.conf                  # Proxy /api/ → backend, serve SPA
+│   │       └── api.ts                  # fetch wrapper apuntando a /api/
+│   ├── index.html
+│   ├── nginx.conf                      # Proxy /api/ → backend, serve SPA
 │   ├── package.json
-│   └── Dockerfile                  # Multi-stage: Node build + nginx serve
+│   ├── tsconfig.json / tsconfig.app.json / tsconfig.node.json
+│   ├── vite.config.ts
+│   └── Dockerfile                      # Multi-stage: Node build + nginx serve
 └── .github/
     └── workflows/
-        ├── ci-backend.yml          # Build + push pedido-backend
-        └── ci-frontend.yml         # Build + push pedido-frontend
+        ├── ci-backend.yml              # Build + push pedido-backend
+        └── ci-frontend.yml            # Build + push pedido-frontend
 ```
 
 ---
