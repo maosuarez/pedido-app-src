@@ -13,6 +13,7 @@ jobs:
   build-and-push:
     name: Build & Push pedido-backend
     runs-on: ubuntu-latest
+    environment: cd-dockerhub
 
     steps:
       - name: Checkout
