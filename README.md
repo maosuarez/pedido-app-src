@@ -189,17 +189,17 @@ Leyenda: `⬜ Pendiente` · `🔄 En progreso` · `✅ Completado` · `🔴 Bloq
 |---|---|---|---|---|
 | 1 | Crear estructura base de carpetas | Persona B | ✅ | `feature/pb-repo-setup` |
 | 2 | Agregar `CLAUDE.md` y `README.md` | Persona B | ✅ | `feature/pb-repo-setup` |
-| 3 | Configurar secrets en GitHub (`DOCKERHUB_USERNAME`, `DOCKERHUB_TOKEN`) | Ambos | ⬜ | — |
+| 3 | Configurar secrets en GitHub (`DOCKERHUB_USERNAME`, `DOCKERHUB_TOKEN`) | Ambos | ✅ | — |
 
 ### 🖥️ Backend
 
 | # | Tarea | Responsable | Estado | Rama |
 |---|---|---|---|---|
-| 4 | Modelo `Pedido` y configuración Spring Boot + PostgreSQL | Persona B | ⬜ | `feature/pb-backend` |
-| 5 | CRUD completo de pedidos (`/api/pedidos`) | Persona B | ⬜ | `feature/pb-backend` |
-| 6 | Endpoint `/api/health` para liveness probe | Persona B | ⬜ | `feature/pb-backend` |
-| 7 | `application.properties` leyendo todo de variables de entorno | Persona B | ⬜ | `feature/pb-backend` |
-| 8 | `Dockerfile` multi-stage (Maven build + JRE slim runtime) | Persona B | ⬜ | `feature/pb-backend` |
+| 4 | Modelo `Pedido` y configuración Spring Boot + PostgreSQL | Persona B | ✅ | `feature/pb-backend` |
+| 5 | CRUD completo de pedidos (`/api/pedidos`) | Persona B | ✅ | `feature/pb-backend` |
+| 6 | Endpoint `/api/health` para liveness probe | Persona B | ✅ | `feature/pb-backend` |
+| 7 | `application.properties` leyendo todo de variables de entorno | Persona B | ✅ | `feature/pb-backend` |
+| 8 | `Dockerfile` multi-stage (Maven build + JRE slim runtime) | Persona B | ✅ | `feature/pb-backend` |
 | 9 | Validar imagen backend localmente | Persona B | ⬜ | — |
 
 ### 🎨 Frontend
@@ -232,13 +232,13 @@ Leyenda: `⬜ Pendiente` · `🔄 En progreso` · `✅ Completado` · `🔴 Bloq
 ## 📊 Progreso — Repo src
 
 ```
-Setup              [██████░░░░]  2/3
-Backend            [░░░░░░░░░░]  0/6
+Setup              [██████████]  3/3
+Backend            [████████░░]  5/6  (falta: validación local manual)
 Frontend           [░░░░░░░░░░]  0/5
 Integración local  [░░░░░░░░░░]  0/2
 CI                 [░░░░░░░░░░]  0/3
 ──────────────────────────────────
-Total              [█░░░░░░░░░]  2/19
+Total              [████░░░░░░]  8/19
 ```
 
 > Actualiza el estado: `⬜ → 🔄 → ✅`
