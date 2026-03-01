@@ -10,7 +10,7 @@ No contiene nada de Kubernetes, Helm ni ArgoCD — eso vive en `pedido-app-infra
 - Backend: Java 21 + Spring Boot 3.5.0 (CRUD de pedidos, conexión PostgreSQL via JDBC)
 - Frontend: React + Vite + TypeScript (SPA que consume `/api/` del backend)
 - CI: GitHub Actions (build + push a Docker Hub en cada push a `main`)
-- Registry: Docker Hub (`<user>/pedido-backend`, `<user>/pedido-frontend`)
+- Registry: Docker Hub (`maosuarez/pedido-backend`, `maosuarez/pedido-frontend`)
 
 ---
 
@@ -22,7 +22,7 @@ No contiene nada de Kubernetes, Helm ni ArgoCD — eso vive en `pedido-app-infra
 
 3. **Las imágenes deben ser lo más pequeñas posible.** Usa imágenes base slim/alpine. No copies archivos innecesarios.
 
-4. **El tag de la imagen debe incluir el SHA del commit.** Nunca uses `latest` como único tag en CI. Formato: `<user>/pedido-backend:dev-<git-sha>`.
+4. **El tag de la imagen debe estar en formato Major.Minor.Fix.** Nunca uses `latest` como único tag en CI. Formato: `maosuarez/pedido-backend:Major.Minor.Fix`.
 
 5. **El backend no hardcodea configuración.** Toda conexión a DB y configuración sensible se lee de variables de entorno. El `application.properties` usa `${ENV_VAR:default}`.
 
