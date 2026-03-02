@@ -27,5 +27,14 @@ services:
     depends_on:
       - postgres
 
+  frontend:
+    build: ./frontend
+    container_name: pedido-frontend-local
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+
 volumes:
   postgres_data:
