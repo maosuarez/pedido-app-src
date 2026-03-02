@@ -32,7 +32,7 @@ services:
     container_name: pedido-frontend-local
     restart: unless-stopped
     ports:
-      - "80:80"
+      - "81:80"
     depends_on:
       - backend
 
