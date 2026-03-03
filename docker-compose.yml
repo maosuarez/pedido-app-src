@@ -31,8 +31,10 @@ services:
     build: ./frontend
     container_name: pedido-frontend-local
     restart: unless-stopped
+    environment:
+      - BACKEND_URL=http://backend:8080
     ports:
-      - "81:80"
+      - "80:80"
     depends_on:
       - backend
 

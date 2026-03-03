@@ -14,8 +14,8 @@ RUN npm run build
 # ---------- Stage 2: Serve ----------
 FROM nginx:1.27-alpine
 
-# Copiar configuración de nginx
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+# Copiar template de nginx (envsubst lo procesa al arrancar el contenedor)
+COPY nginx.conf.template /etc/nginx/templates/default.conf.template
 
 # Copiar archivos compilados desde la etapa de build
 COPY --from=build /app/dist /usr/share/nginx/html
