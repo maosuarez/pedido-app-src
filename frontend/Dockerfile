@@ -14,6 +14,9 @@ RUN npm run build
 # ---------- Stage 2: Serve ----------
 FROM nginx:1.27-alpine
 
+# Valor por defecto (puede sobreescribirse en runtime via docker-compose o K8s)
+ENV BACKEND_URL=http://backend:8080
+
 # Copiar template de nginx (envsubst lo procesa al arrancar el contenedor)
 COPY nginx.conf.template /etc/nginx/templates/default.conf.template
 
