@@ -47,21 +47,28 @@ pedido-app-src/
 │   │   ├── index.css
 │   │   ├── main.tsx
 │   │   ├── components/
-│   │   │   ├── PedidoList.tsx                  (pendiente)
-│   │   │   └── PedidoForm.tsx                  (pendiente)
-│   │   └── services/
-│   │       └── api.ts                          (pendiente)
+│   │   │   ├── PedidoList.tsx
+│   │   │   ├── PedidoForm.tsx
+│   │   │   ├── ConfirmDialog.tsx
+│   │   │   └── StatusBadge.tsx
+│   │   ├── hooks/
+│   │   │   ├── useForm.ts
+│   │   │   └── usePedidos.ts
+│   │   ├── services/
+│   │   │   └── api.ts
+│   │   └── types/
+│   │       └── pedido.ts
 │   ├── index.html
-│   ├── nginx.conf                              (pendiente)
+│   ├── nginx.conf.template
 │   ├── package.json
 │   ├── tsconfig.json / tsconfig.app.json / tsconfig.node.json
 │   ├── vite.config.ts
 │   ├── eslint.config.js
-│   └── Dockerfile                              (pendiente)
+│   └── Dockerfile
 └── .github/
     └── workflows/
         ├── ci-backend.yml
-        └── ci-frontend.yml                     (pendiente)
+        └── ci-frontend.yml
 ```
 
 ---
@@ -214,26 +221,26 @@ Leyenda: `⬜ Pendiente` · `🔄 En progreso` · `✅ Completado` · `🔴 Bloq
 
 | # | Tarea | Responsable | Estado | Rama |
 |---|---|---|---|---|
-| 10 | Componente `PedidoList` — lista pedidos desde `/api/pedidos` | Persona A | ⬜ | `feature/pa-frontend` |
-| 11 | Componente `PedidoForm` — crear pedido via POST | Persona A | ⬜ | `feature/pa-frontend` |
-| 12 | `nginx.conf` — proxy `/api/` → backend, serve SPA en `/` | Persona A | ⬜ | `feature/pa-frontend` |
-| 13 | `Dockerfile` multi-stage (Node build + nginx alpine serve) | Persona A | ⬜ | `feature/pa-frontend` |
-| 14 | Validar imagen frontend localmente | Persona A | ⬜ | — |
+| 10 | Componente `PedidoList` — lista pedidos desde `/api/pedidos` | Persona A | ✅ | `feature/pa-frontend` |
+| 11 | Componente `PedidoForm` — crear pedido via POST | Persona A | ✅ | `feature/pa-frontend` |
+| 12 | `nginx.conf.template` — proxy `/api/` → backend, serve SPA en `/` | Persona A | ✅ | `feature/pa-frontend` |
+| 13 | `Dockerfile` multi-stage (Node build + nginx alpine serve) | Persona A | ✅ | `feature/pa-frontend` |
+| 14 | Validar imagen frontend localmente | Persona A | ✅ | — |
 
 ### 🔗 Integración local
 
 | # | Tarea | Responsable | Estado | Rama |
 |---|---|---|---|---|
-| 15 | `docker-compose.yml` con backend + frontend + PostgreSQL | Ambos | 🔄 | `feature/pb-backend` |
-| 16 | Prueba end-to-end local: crear pedido desde UI, verificar en DB | Ambos | ⬜ | — |
+| 15 | `docker-compose.yml` con backend + frontend + PostgreSQL | Ambos | ✅ | `feature/pb-backend` |
+| 16 | Prueba end-to-end local: crear pedido desde UI, verificar en DB | Ambos | ✅ | — |
 
 ### ⚙️ CI
 
 | # | Tarea | Responsable | Estado | Rama |
 |---|---|---|---|---|
 | 17 | `ci-backend.yml` — build + push a Docker Hub | Persona B | ✅ | `feature/pb-backend` |
-| 18 | `ci-frontend.yml` — build + push a Docker Hub | Persona A | ⬜ | `feature/pa-ci-frontend` |
-| 19 | Validar que las imágenes aparecen en Docker Hub tras el push | Ambos | ⬜ | — |
+| 18 | `ci-frontend.yml` — build + push a Docker Hub | Persona A | ✅ | `feature/pa-ci-frontend` |
+| 19 | Validar que las imágenes aparecen en Docker Hub tras el push | Ambos | ✅ | — |
 
 ---
 
@@ -242,11 +249,11 @@ Leyenda: `⬜ Pendiente` · `🔄 En progreso` · `✅ Completado` · `🔴 Bloq
 ```
 Setup              [██████████]  3/3
 Backend            [██████████]  6/6
-Frontend           [░░░░░░░░░░]  0/5
-Integración local  [░░░░░░░░░░]  0/2
-CI                 [███░░░░░░░]  1/3
+Frontend           [██████████]  5/5
+Integración local  [██████████]  2/2
+CI                 [██████████]  3/3
 ──────────────────────────────────
-Total              [██████░░░░]  10/19
+Total              [██████████]  19/19
 ```
 
 > Actualiza el estado: `⬜ → 🔄 → ✅`
